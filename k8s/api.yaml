@@ -16,7 +16,8 @@ spec:
       containers:
         - name: api
           # Jenkins가 아래 줄의 태그를 빌드 번호로 바꿈
-          image: dev-server-api:manual
+          # image: dev-server-api:manual
+          image: dev-server-api:v2
           imagePullPolicy: IfNotPresent
           env:
             - name: DATABASE_URL
