@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-server-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jihwan-kong-kt/dev_server_config.git
+    targetRevision: main
+    path: k8s                     # 저장소에서 감시할 폴더
+  destination:
+    server: https://kubernetes.default.svc   #ArgoCD가 설치된도 바로 그 클러스터
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true             # Git에서 지운 리소스는 클러스터에서도 지움
+      selfHeal: true          # 클러스터를 손으로 바꾸면 Git 상태로 되돌림
+    syncOptions:
+      - CreateNamespace=true
